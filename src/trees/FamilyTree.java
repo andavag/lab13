@@ -33,6 +33,7 @@ public class FamilyTree
         {
             // Add childNode to this node's children list. Also
             // set childNode's parent to this node.
+        	children.add(childNode);
         }
         
         
@@ -41,7 +42,7 @@ public class FamilyTree
         TreeNode getNodeWithName(String targetName)
         {
             // Does this node have the target name?
-            if (?????)
+            if (this.name == targetName)
                 return this;
                     
             // No, recurse. Check all children of this node.
@@ -49,6 +50,9 @@ public class FamilyTree
             {
                 // If child.getNodeWithName(targetName) returns a non-null node,
                 // then that's the node we're looking for. Return it.
+            	if(child.getNodeWithName(targetName) != null) {
+            		return child;
+            	}
             }
             
             // Not found anywhere.
@@ -61,6 +65,16 @@ public class FamilyTree
         ArrayList<TreeNode> collectAncestorsToList()
         {
             ArrayList<TreeNode> ancestors = new ArrayList<>();
+            
+            for (TreeNode child: children)
+            {
+                // If child.getNodeWithName(targetName) returns a non-null node,
+                // then that's the node we're looking for. Return it.
+            	if(child.collectAncestorsToList() != null) {
+            		ancestors.add(child);
+            		return ancestors;
+            	}
+            }
 
             // ?????  Collect ancestors of this TreeNode into the array list. HINT: going up
             // the nodes of a tree is like traversing a linked list. If that isn’t clear,
@@ -109,13 +123,14 @@ public class FamilyTree
 
 		// Parse the input file. Create a FileReader that reads treeFile. Create a BufferedReader
 		// that reads from the FileReader.
-		FileReader fr = ???
-		BufferedReader br = ???
+		FileReader fr = new FileReader("lab13/src/trees/BagginsFamilyTree.txt");
+		BufferedReader br = new BufferedReader(fr);
 		String line;
 		while ((line = br.readLine()) != null)
 			addLine(line);
 		br.close();
 		fr.close();
+		
 	}
 	
 	
